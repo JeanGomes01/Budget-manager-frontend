@@ -16,6 +16,8 @@ export const HomeBorderContainer = styled.h1`
 `;
 
 export const ButtonGray = styled.button`
+  width: 10rem;
+  height: 2.1rem;
   background-color: #bababa;
   color: #fff;
   border: none;
@@ -24,7 +26,19 @@ export const ButtonGray = styled.button`
 `;
 
 export const ButtonBlue = styled.button`
+  width: 10rem;
+  height: 2.1rem;
   background-color: #0094ff;
+  color: #fff;
+  border: none;
+  margin-left: 1rem;
+  cursor: pointer;
+`;
+
+export const ButtonRed = styled.div`
+  width: 10rem;
+  height: 2.1rem;
+  background-color: ##ff0000;
   color: #fff;
   border: none;
   margin-left: 1rem;

@@ -23,7 +23,6 @@ const Login = () => {
       setError("Por favor, preencha todos os campos.");
       return;
     }
-
     setError("");
     setLoading(true);
 

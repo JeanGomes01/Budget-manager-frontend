@@ -14,6 +14,10 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+interface LoginResponse {
+  token: string;
+}
+
 // Função para registrar usuário
 export const registerUser = async (
   username: string,
@@ -37,17 +41,20 @@ export const registerUser = async (
 };
 
 // Função para fazer login do usuário
-export const loginUser = async (email: string, password: string) => {
+export const loginUser = async (
+  email: string,
+  password: string
+): Promise<LoginResponse> => {
   try {
     const response = await api.post("/login", { email, password });
+    console.log("Usuário logado com sucesso", response.data);
     console.log("Resposta da API:", response.data); // Adicione esta linha para verificar a resposta
 
     const token = response.data.token; // Obtenha o token do backend
+    localStorage.setItem("token", token);
+    return response.data;
 
     // Armazena o token no localStorage
-    localStorage.setItem("token", token);
-
-    return token; // Você pode retornar o token, se necessário
   } catch (error: any) {
     console.error(
       "Erro ao fazer login:",
@@ -60,7 +67,7 @@ export const loginUser = async (email: string, password: string) => {
 // Função para obter dados do cliente logado
 export const getClientData = async () => {
   try {
-    const response = await api.get("/me"); // Supondo que "/me" retorna os dados do cliente
+    const response = await api.get("/users");
     return response.data;
   } catch (error: any) {
     console.error(

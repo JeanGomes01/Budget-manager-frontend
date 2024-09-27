@@ -1,6 +1,8 @@
 // HomeCliente.jsx
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ButtonBlue, ButtonGray, ButtonRed } from "./HomeClient.styles";
 
 interface User {
   id: number;
@@ -12,27 +14,44 @@ interface User {
 const HomeCliente = () => {
   const [userData, setUserData] = useState<User | null>(null);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  const fetchUserData = async () => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+    try {
+      const response = await axios.get("http://localhost:3333/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserData(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar dados do usuário:", error);
+      navigate("/login");
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3333/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar dados do usuário:", error);
-      }
-    };
-
     fetchUserData();
-  }, [token]);
+  }, []);
 
   return (
     <div>
       <h1>Bem-vindo ao Home do usuário!</h1>
+      <div>
+        <ButtonBlue>Clientes</ButtonBlue>
+        <ButtonGray>Materiais</ButtonGray>
+        <ButtonGray>Orçamentos</ButtonGray>
+      </div>
+      <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
       {userData ? (
         <div>
           <h2>Usuário:</h2>
