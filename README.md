@@ -124,10 +124,10 @@ Este projeto é licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICE
 
 ## UI UX
 
-|                Tela login                |               Tela criar cliente                |
-| :--------------------------------------: | :---------------------------------------------: |
-| ![Tela de início](github/tela_login.png) | ![Tela about me](github/tela_criar_cliente.png) |
+|                 Tela login                 |                Tela criar cliente                 |
+| :----------------------------------------: | :-----------------------------------------------: |
+| ![Tela de início](./github/Tela_login.png) | ![Tela about me](./github/Tela_Criar_cliente.png) |
 
-|              Tela de home Cliente               |                   Tela de Criar Materiais                   |
-| :---------------------------------------------: | :---------------------------------------------------------: |
-| ![Tela de Skills](github/tela_Home_cliente.png) | ![Tela de Criar materiais](github/tela_Criar_materiais.png) |
+|               Tela de home Cliente                |                    Tela de Criar Materiais                    |
+| :-----------------------------------------------: | :-----------------------------------------------------------: |
+| ![Tela de Skills](./github/Tela_home_cliente.png) | ![Tela de Criar materiais](./github/Tela_Criar_materiais.png) |
