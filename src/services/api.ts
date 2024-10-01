@@ -16,6 +16,11 @@ api.interceptors.request.use((config) => {
 
 interface LoginResponse {
   token: string;
+  data: {
+    username: string;
+    email: string;
+    created: string;
+  };
 }
 
 // Função para registrar usuário

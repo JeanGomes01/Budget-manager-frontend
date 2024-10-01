@@ -3,18 +3,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  BtnDelete,
-  BtnUpdate,
+  BtnVisualizar,
   ButtonAction,
+  ButtonCriarBudget,
+  UserData,
+} from "./HomeBudget.styles";
+import {
   ButtonBlue,
   ButtonGray,
   ButtonRed,
   Buttons,
-  UserData,
   UserDataContainer,
   UserDataTitle,
 } from "./HomeClient.styles";
-import { ButtonCriarMaterials } from "./HomeMaterials.styles";
 
 interface User {
   id: number;
@@ -60,30 +61,31 @@ const HomeCliente = () => {
       <h1>Bem-vindo ao Home do usuário!</h1>
       <Buttons>
         <ButtonGray>Clientes</ButtonGray>
-        <ButtonBlue>Materiais</ButtonBlue>
-        <ButtonGray>Orçamentos</ButtonGray>
+        <ButtonGray>Materiais</ButtonGray>
+        <ButtonBlue>Orçamentos</ButtonBlue>
         <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
-        <ButtonCriarMaterials>Criar Materiais</ButtonCriarMaterials>
+        <ButtonCriarBudget>Criar Orçamento</ButtonCriarBudget>
       </Buttons>
 
       {userData ? (
         <div>
           <UserDataContainer>
             <UserDataTitle>
-              <h2>Nome</h2>
-              <h2>Valor</h2>
+              <h2>Cliente</h2>
+              <h2>Valor Total</h2>
               <h2>Criado em</h2>
+              <h2>Concluido em</h2>
               <h2>Ações</h2>
             </UserDataTitle>
             <UserData>
               <p>Name: {userData.id}</p>
-              <p>Valor: R$ {userData.username}</p>
+              <p>Valor Total: R$ {userData.username}</p>
               <p>
                 Data de Criação: {new Date(userData.createdAt).toLocaleString()}
               </p>
+              <p>Concluido em:</p>
               <ButtonAction>
-                <BtnUpdate>Update</BtnUpdate>
-                <BtnDelete>Delete</BtnDelete>
+                <BtnVisualizar>Visualizar</BtnVisualizar>
               </ButtonAction>
             </UserData>
           </UserDataContainer>

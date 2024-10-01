@@ -27,15 +27,18 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const { token } = await loginUser(email, password);
+      const { token, data } = await loginUser(email, password);
 
       if (token) {
         localStorage.setItem("token", token);
+
+        localStorage.setItem("user", JSON.stringify(data));
         navigate("/home-cliente");
       } else {
         setError("Erro no login. Tente novamente.");
       }
-    } catch (err) {
+    } catch (err: any) {
+      alert(err.message || "Erro no login. Tente novamente.");
       console.error("Erro no login:", err);
       setError("Erro no login. Verifique suas credenciais.");
     } finally {

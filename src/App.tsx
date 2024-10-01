@@ -6,6 +6,7 @@ import BudgetStep3 from "./components/Auth/Budget/BudgetStep3";
 import RegisterClient from "./components/Auth/Client/RegisterClient";
 import Login from "./components/Auth/Login";
 import Material from "./components/Auth/Material/Material";
+import HomeBudget from "./pages/HomeBudget";
 import HomeClient from "./pages/HomeClient";
 import HomeMaterials from "./pages/HomeMaterials";
 import UserList from "./pages/userList";
@@ -17,10 +18,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/register" element={<RegisterClient />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/home-materials" element={<HomeMaterials />} />
           <Route path="/home-cliente" element={<HomeClient />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<RegisterClient />} />
+          <Route path="/home-budget" element={<HomeBudget />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/materials" element={<Material />} />
           <Route path="/budget-step1" element={<BudgetStep1 />} />

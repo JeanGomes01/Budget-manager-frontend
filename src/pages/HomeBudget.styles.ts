@@ -16,6 +16,8 @@ export const HomeBorderContainer = styled.h1`
 `;
 
 export const ButtonGray = styled.button`
+  width: 10rem;
+  height: 2.1rem;
   background-color: #bababa;
   color: #fff;
   border: none;
@@ -24,6 +26,8 @@ export const ButtonGray = styled.button`
 `;
 
 export const ButtonBlue = styled.button`
+  width: 10rem;
+  height: 2.1rem;
   background-color: #0094ff;
   color: #fff;
   border: none;
@@ -31,7 +35,26 @@ export const ButtonBlue = styled.button`
   cursor: pointer;
 `;
 
-export const ButtonCriarMaterials = styled.div`
+export const ButtonRed = styled.div`
+  width: 10rem;
+  height: 2.1rem;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  margin-left: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Buttons = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const ButtonCriarBudget = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +74,7 @@ export const ButtonAction = styled.div`
   gap: 1rem;
 `;
 
-export const BtnUpdate = styled.div`
+export const BtnVisualizar = styled.div`
   background-color: #0094ff;
   color: #fff;
   cursor: pointer;
@@ -59,23 +82,15 @@ export const BtnUpdate = styled.div`
   border-radius: 2rem;
 `;
 
-export const BtnDelete = styled.div`
-  background-color: #ff0000;
-  color: #fff;
-  cursor: pointer;
-  padding: 0.75rem;
-  border-radius: 2rem;
+export const UserDataTitle = styled.div`
+  display: flex;
+  justify-content: space-around;
+  background-color: #d3d3d3;
 `;
 
 export const UserDataContainer = styled.div`
   margin-top: 2rem;
   border: 2px solid black;
-`;
-
-export const UserDataTitle = styled.div`
-  display: flex;
-  justify-content: space-around;
-  background-color: #d3d3d3;
 `;
 
 export const UserData = styled.div`
