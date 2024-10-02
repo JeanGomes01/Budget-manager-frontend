@@ -1,83 +1,64 @@
-// HomeCliente.jsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  BtnDelete,
-  BtnUpdate,
-  ButtonAction,
-  ButtonBlue,
-  ButtonCriarCliente,
-  ButtonGray,
-  ButtonRed,
-  Buttons,
-  UserData,
-  UserDataContainer,
-  UserDataTitle,
+  Label,
+  LabelInputContainer,
+  LoginBorderContainer,
+  LoginButton,
+  LoginContainer,
+  LoginInput,
+  LoginTitle,
 } from "./HomeClient.styles";
 
-interface User {
-  username: string;
-  email: string;
-  created: string; // ou Date, se você preferir manipular como objeto Date
-}
-
-const HomeCliente = () => {
-  const [userData, setUserData] = useState<User | null>(null);
+const HomeClient = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+  const handleLogin = async () => {
+    if (!name || !email) {
+      setError("Por favor, preencha todos os campos.");
+      return;
+    }
+    setError("");
+    setLoading(true);
   };
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    const userParssed = user ? JSON.parse(user) : null;
-    setUserData(userParssed);
-  }, []);
-
   return (
-    <div>
-      <h1>Bem-vindo ao Home do usuário!</h1>
-      <Buttons>
-        <ButtonBlue onClick={() => navigate("/home-cliente")}>
-          Clientes
-        </ButtonBlue>
-        <ButtonGray onClick={() => navigate("/materials")}>
-          Materiais
-        </ButtonGray>
-        <ButtonGray onClick={() => navigate("/budget-step1")}>
-          Orçamentos
-        </ButtonGray>
-        <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
-        <ButtonCriarCliente>Criar Cliente</ButtonCriarCliente>
-      </Buttons>
+    <LoginContainer>
+      <LoginBorderContainer>
+        <LoginTitle>CREATE CLIENT</LoginTitle>
+        <LabelInputContainer>
+          <Label>Name:</Label>
+          <LoginInput
+            type="name"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            disabled={loading}
+          />
+        </LabelInputContainer>
+        <LabelInputContainer>
+          <Label>Email:</Label>
+          <LoginInput
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
+          />
+        </LabelInputContainer>
 
-      {userData ? (
-        <div>
-          <UserDataContainer>
-            <UserDataTitle>
-              <h2>Nome</h2>
-              <h2>Email</h2>
-              <h2>Criado em</h2>
-              <h2>Ações</h2>
-            </UserDataTitle>
-            <UserData>
-              <p>{userData.username}</p>
-              <p>{userData.email}</p>
-              <p>{userData.created}</p>
-              <ButtonAction>
-                <BtnUpdate>Update</BtnUpdate>
-                <BtnDelete>Delete</BtnDelete>
-              </ButtonAction>
-            </UserData>
-          </UserDataContainer>
-        </div>
-      ) : (
-        <p>Carregando dados do usuário...</p>
-      )}
-    </div>
+        <LoginButton type="button" onClick={handleLogin}>
+          Enter
+        </LoginButton>
+        <LoginButton onClick={() => navigate("/client")}>Register</LoginButton>
+        {error && <p>{error}</p>}
+      </LoginBorderContainer>
+    </LoginContainer>
   );
 };
 
-export default HomeCliente;
+export default HomeClient;

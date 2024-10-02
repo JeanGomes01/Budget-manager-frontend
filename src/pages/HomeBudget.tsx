@@ -1,4 +1,3 @@
-// HomeCliente.jsx
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +14,7 @@ import {
   Buttons,
   UserDataContainer,
   UserDataTitle,
-} from "./HomeClient.styles";
+} from "./HomeUser.styles";
 
 interface User {
   id: number;
@@ -24,7 +23,7 @@ interface User {
   createdAt: string; // ou Date, se você preferir manipular como objeto Date
 }
 
-const HomeCliente = () => {
+const HomeUser = () => {
   const [userData, setUserData] = useState<User | null>(null);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -97,4 +96,4 @@ const HomeCliente = () => {
   );
 };
 
-export default HomeCliente;
+export default HomeUser;

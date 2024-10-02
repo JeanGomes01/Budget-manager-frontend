@@ -23,16 +23,21 @@ interface LoginResponse {
   };
 }
 
+interface LoginResponseClient {
+  token: string;
+  data: {
+    name: string;
+    email: string;
+    created: string;
+  };
+}
+
 // Função para registrar usuário
-export const registerUser = async (
-  username: string,
-  email: string,
-  password: string
-) => {
-  console.log("Dados enviados", { username, password, email });
+export const registerUser = async (email: string, password: string) => {
+  console.log("Dados enviados", { email, password });
 
   try {
-    const response = await api.post("/register", { username, email, password });
+    const response = await api.post("/user", { email, password });
     console.log("Usuário registrado com sucesso", response.data);
     return response.data; // Retorna a resposta do backend
   } catch (error: any) {
@@ -45,6 +50,21 @@ export const registerUser = async (
   }
 };
 
+/// Funçõo para registrar clientes
+export const registerClient = async (name: string, email: string) => {
+  try {
+    const responseClient = await api.post("/clients", { name, email });
+    console.log("Cliente registrado com sucesso", responseClient.data);
+    return responseClient.data; // Retorna a resposta do backend
+  } catch (error: any) {
+    console.error(
+      "Erro ao registrar client:",
+      error.response?.data || error.message
+    );
+    throw error.response?.data || new Error("Erro ao registrar client");
+  }
+};
+
 // Função para fazer login do usuário
 export const loginUser = async (
   email: string,
@@ -52,7 +72,7 @@ export const loginUser = async (
 ): Promise<LoginResponse> => {
   try {
     const response = await api.post("/login", { email, password });
-    console.log("Usuário logado com sucesso", response.data);
+    console.log("Cliente logado com sucesso", response.data);
     console.log("Resposta da API:", response.data); // Adicione esta linha para verificar a resposta
 
     const token = response.data.token; // Obtenha o token do backend
@@ -69,8 +89,26 @@ export const loginUser = async (
   }
 };
 
+export const loginClient = async (
+  name: string,
+  email: string
+): Promise<LoginResponseClient> => {
+  try {
+    const responseClient = await api.post("/loginClient", { name, email });
+    console.log("Cliente logado com sucesso", responseClient.data);
+    console.log("Resposta da API:", responseClient.data); // Adicione esta linha para verificar a resposta
+    return responseClient.data;
+  } catch (error: any) {
+    console.error(
+      "Erro ao fazer login:",
+      error.response?.data || error.message
+    );
+    throw error.response?.data || new Error("Erro ao fazer login");
+  }
+};
+
 // Função para obter dados do cliente logado
-export const getClientData = async () => {
+export const getUserData = async () => {
   try {
     const response = await api.get("/users");
     return response.data;
@@ -83,18 +121,43 @@ export const getClientData = async () => {
   }
 };
 
+export const getClientData = async () => {
+  try {
+    const responseClient = await api.get("/clients");
+    return responseClient.data.data;
+  } catch (error: any) {
+    console.error(
+      "Erro ao buscar dados do cliente:",
+      error.response?.data || error.message
+    );
+    throw error.response?.data || new Error("Erro ao buscar dados do cliente");
+  }
+};
+
 // Função para registrar cliente
-export async function registerClient(userData: {
-  username: string;
+export async function createUser(userData: {
   email: string;
   password: string;
 }) {
   try {
-    const response = await api.post("/register", userData); // Usa a instância api
+    const response = await api.post("/user", userData); // Usa a instância api
     return response.data;
   } catch (error) {
     console.error("Error during registration:", error);
     throw error; // Opcional: você pode querer tratar isso de forma diferente
+  }
+}
+
+export async function createClient(clientData: {
+  name: string;
+  email: string;
+}) {
+  try {
+    const responseClient = await api.post("/clients", clientData);
+    return responseClient.data;
+  } catch (error) {
+    console.error("Error during registration:", error);
+    throw error;
   }
 }
 

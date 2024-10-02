@@ -33,7 +33,7 @@ const Login = () => {
         localStorage.setItem("token", token);
 
         localStorage.setItem("user", JSON.stringify(data));
-        navigate("/home-cliente");
+        navigate("/home-user");
       } else {
         setError("Erro no login. Tente novamente.");
       }
@@ -71,11 +71,9 @@ const Login = () => {
           />
         </LabelInputContainer>
         <LoginButton type="button" onClick={handleLogin}>
-          Entrar
+          Enter
         </LoginButton>
-        <LoginButton onClick={() => navigate("/register")}>
-          Registrar
-        </LoginButton>
+        <LoginButton onClick={() => navigate("/user")}>Register</LoginButton>
         {error && <p>{error}</p>}
       </LoginBorderContainer>
     </LoginContainer>

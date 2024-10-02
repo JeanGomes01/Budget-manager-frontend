@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../../services/api"; // Ajuste o caminho se necessário
+import { registerClient } from "../../../services/api"; // Ajuste o caminho se necessário
 import {
   Label,
   LabelInputContainer,
@@ -11,12 +11,11 @@ import {
   RegisterInput,
   RegisterTitle,
   ReturnButton,
-} from "./RegisterClient.styles";
+} from "./Client.styles";
 
 const RegisterClient = () => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -24,11 +23,12 @@ const RegisterClient = () => {
     event.preventDefault();
 
     try {
-      await registerUser(username, email, password);
-      navigate("/home-cliente");
-      alert("Usuário registrado com sucesso!");
+      console.log(name, email);
+      await registerClient(name, email);
+      navigate("/client");
+      alert("Client registrado com sucesso!");
     } catch (err) {
-      setError("Erro ao registrar usuário !");
+      setError("Erro ao registrar client !");
       console.error(err);
     }
   };
@@ -36,14 +36,14 @@ const RegisterClient = () => {
   return (
     <RegisterContainer onSubmit={handleSubmit}>
       <RegisterBorderContainer>
-        <RegisterTitle>CRIAR CLIENTE</RegisterTitle>
+        <RegisterTitle>CREATE CLIENT</RegisterTitle>
         <LabelInputContainer>
-          <Label>Username:</Label>
+          <Label>Name:</Label>
           <RegisterInput
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
+            type="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="name"
             required
           />
         </LabelInputContainer>
@@ -57,18 +57,8 @@ const RegisterClient = () => {
             required
           />
         </LabelInputContainer>
-        <LabelInputContainer>
-          <Label>Password:</Label>
-          <RegisterInput
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-          />
-        </LabelInputContainer>
-        <RegisterButton type="submit">Registrar</RegisterButton>
-        <ReturnButton onClick={() => navigate("/login")}>Voltar</ReturnButton>
+        <RegisterButton type="submit">Create</RegisterButton>
+        <ReturnButton onClick={() => navigate("/home-user")}>Back</ReturnButton>
         <LogoutButton onClick={() => navigate("/login")}>logout</LogoutButton>
         {error && <p>{error}</p>}
       </RegisterBorderContainer>
