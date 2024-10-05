@@ -87,7 +87,7 @@ export const createClient = async (
   email: string
 ): Promise<LoginResponseClient> => {
   try {
-    const responseClient = await api.post("/loginClient", { name, email });
+    const responseClient = await api.post("/clients", { name, email });
     console.log("Cliente logado com sucesso", responseClient.data);
     console.log("Resposta da API:", responseClient.data); // Adicione esta linha para verificar a resposta
     return responseClient.data;

@@ -54,7 +54,9 @@ const HomeClient = () => {
         <LoginButton type="button" onClick={handleLogin}>
           Enter
         </LoginButton>
-        <LoginButton onClick={() => navigate("/client")}>Register</LoginButton>
+        <LoginButton onClick={() => navigate("/home-user")}>
+          Register
+        </LoginButton>
         {error && <p>{error}</p>}
       </LoginBorderContainer>
     </LoginContainer>

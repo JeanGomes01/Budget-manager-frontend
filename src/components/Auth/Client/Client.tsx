@@ -25,7 +25,7 @@ const RegisterClient = () => {
     try {
       console.log(name, email);
       await createClient(name, email);
-      navigate("/client");
+      navigate("/home-user");
       alert("Client registrado com sucesso!");
     } catch (err) {
       setError("Erro ao registrar client !");
