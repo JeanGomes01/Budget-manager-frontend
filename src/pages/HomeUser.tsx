@@ -29,9 +29,6 @@ interface Client {
 }
 
 const HomeUser = () => {
-  // const [userData, setUserData] = useState<User | null>(null);
-  // const navigate = useNavigate();
-
   const [clientData, setClientData] = useState<Client[]>([]);
   const navigate = useNavigate();
 
@@ -67,69 +64,20 @@ const HomeUser = () => {
           Budget
         </ButtonGray>
         <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
-        <ButtonCriarCliente onClick={() => navigate("/client")}>
+        <ButtonCriarCliente onClick={() => navigate("/create-client")}>
           Create Client
         </ButtonCriarCliente>
+        <ButtonCriarCliente onClick={() => navigate("/create-material")}>
+          Create Material
+        </ButtonCriarCliente>
       </Buttons>
-      {/* {clientData.map((clientData, index) => (
-        <div key={index}>
-          {
-            // <UserDataContainer>
-            //   <UserDataTitle>
-            //     <h2>Nome</h2>
-            //     <h2>Email</h2>
-            //     <h2>Criado em</h2>
-            //     <h2>Ações</h2>
-            //   </UserDataTitle>
-            //   <UserData>
-            //     <p>{clientData.name}</p>
-            //     <p>{clientData.email}</p>
-            //     <p>{clientData.createdAt}</p>
-            //     <ButtonAction>
-            //       <BtnUpdate>Update</BtnUpdate>
-            //       <BtnDelete onClick={() => deleteClientes(clientData.id)}>
-            //         Delete
-            //       </BtnDelete>
-            //     </ButtonAction>
-            //   </UserData>
-            // </UserDataContainer>
-          }
-        </div>
-        ))} */}
       <h2>Listagem de Clientes</h2>
       <UserDataContainer>
         <UserDataTitle>
-          <th>Nome</th>
+          <th>Name</th>
           <th>Email</th>
-          <th>Criado em</th>
-          <th>Ações</th>
-        </UserDataTitle>
-        <tbody>
-          {clientData.map((client) => (
-            <UserData key={client.id}>
-              <td>{client.name}</td>
-              <td>{client.email}</td>
-              <td>{client.createdAt}</td>
-              <td>
-                <ButtonAction>
-                  <BtnUpdate>Update</BtnUpdate>
-                  <BtnDelete onClick={() => deleteClientes(client.id)}>
-                    Delete
-                  </BtnDelete>
-                </ButtonAction>
-              </td>
-            </UserData>
-          ))}
-        </tbody>
-      </UserDataContainer>
-
-      <h2>Listagem de Materiais</h2>
-      <UserDataContainer>
-        <UserDataTitle>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Criado em</th>
-          <th>Ações</th>
+          <th>Created At</th>
+          <th>Action</th>
         </UserDataTitle>
         <tbody>
           {clientData.map((client) => (

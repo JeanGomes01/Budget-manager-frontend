@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getMaterialData } from "../services/api";
 import { ButtonCriarMaterials } from "./HomeMaterials.styles";
 import {
   BtnDelete,
@@ -15,81 +16,77 @@ import {
   UserDataTitle,
 } from "./HomeUser.styles";
 
-interface User {
+interface Material {
   id: number;
-  username: string;
-  email: string;
-  createdAt: string; // ou Date, se você preferir manipular como objeto Date
+  name: string;
+  value: number;
+  createdAt: string;
 }
 
 const HomeMaterials = () => {
-  const [userData, setUserData] = useState<User | null>(null);
-  const token = localStorage.getItem("token");
+  const [materialData, setMaterialData] = useState<Material[]>([]);
   const navigate = useNavigate();
 
-  const fetchUserData = async () => {
-    if (!token) {
-      navigate("/login");
-      return;
-    }
+  const deleteMaterials = async (id: number) => {
+    console.log(id);
     try {
-      const response = await axios.get("http://localhost:3333/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await axios.delete(`http://localhost:3333/materials`, {
+        data: { id }, // Passando o id no corpo da requisição
       });
-      setUserData(response.data);
+      setMaterialData(materialData.filter((material) => material.id !== id));
     } catch (error) {
-      console.error("Erro ao buscar dados do usuário:", error);
-      navigate("/login");
+      console.error("Erro ao excluir material:", error);
     }
   };
+
+  useEffect(() => {
+    getMaterialData().then((data) => setMaterialData(data));
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
   return (
     <div>
       <h1>Bem-vindo ao Home do usuário!</h1>
       <Buttons>
-        <ButtonGray>Clientes</ButtonGray>
-        <ButtonBlue>Materiais</ButtonBlue>
-        <ButtonGray>Orçamentos</ButtonGray>
+        <ButtonGray onClick={() => navigate("/home-user")}>Clients</ButtonGray>
+        <ButtonBlue>Materials</ButtonBlue>
+        <ButtonGray>Budget</ButtonGray>
         <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
-        <ButtonCriarMaterials>Criar Materiais</ButtonCriarMaterials>
+        <ButtonCriarMaterials onClick={() => navigate("/create-client")}>
+          Create Clients
+        </ButtonCriarMaterials>
+        <ButtonCriarMaterials>Create Materials</ButtonCriarMaterials>
       </Buttons>
-
-      {userData ? (
-        <div>
-          <UserDataContainer>
-            <UserDataTitle>
-              <h2>Nome</h2>
-              <h2>Valor</h2>
-              <h2>Criado em</h2>
-              <h2>Ações</h2>
-            </UserDataTitle>
-            <UserData>
-              <p>Name: {userData.id}</p>
-              <p>Valor: R$ {userData.username}</p>
-              <p>
-                Data de Criação: {new Date(userData.createdAt).toLocaleString()}
-              </p>
-              <ButtonAction>
-                <BtnUpdate>Update</BtnUpdate>
-                <BtnDelete>Delete</BtnDelete>
-              </ButtonAction>
+      <h2>Listagem de Materiais</h2>
+      <UserDataContainer>
+        <UserDataTitle>
+          <th>Name</th>
+          <th>Value</th>
+          <th>Created At</th>
+          <th>Action</th>
+        </UserDataTitle>
+        <tbody>
+          {materialData.map((materialData) => (
+            <UserData key={materialData.id}>
+              <td>{materialData.name}</td>
+              <td>{materialData.value}</td>
+              <td>{materialData.createdAt}</td>
+              <td>
+                <ButtonAction>
+                  <BtnUpdate>Update</BtnUpdate>
+                  <BtnDelete onClick={() => deleteMaterials(materialData.id)}>
+                    Delete
+                  </BtnDelete>
+                </ButtonAction>
+              </td>
             </UserData>
-          </UserDataContainer>
-        </div>
-      ) : (
-        <p>Carregando dados do usuário...</p>
-      )}
+          ))}
+        </tbody>
+      </UserDataContainer>
     </div>
   );
 };

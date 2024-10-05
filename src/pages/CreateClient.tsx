@@ -8,7 +8,7 @@ import {
   LoginContainer,
   LoginInput,
   LoginTitle,
-} from "./HomeClient.styles";
+} from "./CreateClient.styles";
 
 const HomeClient = () => {
   const navigate = useNavigate();

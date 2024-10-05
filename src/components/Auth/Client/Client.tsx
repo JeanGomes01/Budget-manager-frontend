@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerClient } from "../../../services/api"; // Ajuste o caminho se necessário
+import { createClient } from "../../../services/api";
 import {
   Label,
   LabelInputContainer,
@@ -24,7 +24,7 @@ const RegisterClient = () => {
 
     try {
       console.log(name, email);
-      await registerClient(name, email);
+      await createClient(name, email);
       navigate("/client");
       alert("Client registrado com sucesso!");
     } catch (err) {

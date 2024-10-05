@@ -22,13 +22,21 @@ interface LoginResponse {
     created: string;
   };
 }
-
 interface LoginResponseClient {
   token: string;
   data: {
     name: string;
     email: string;
     created: string;
+  };
+}
+
+interface responseMaterial {
+  data: {
+    id: number;
+    name: string;
+    value: number;
+    createdAt: string;
   };
 }
 
@@ -47,21 +55,6 @@ export const registerUser = async (email: string, password: string) => {
       error.response?.data || error.message
     );
     throw error.response?.data || new Error("Erro ao registrar usuário");
-  }
-};
-
-/// Funçõo para registrar clientes
-export const registerClient = async (name: string, email: string) => {
-  try {
-    const responseClient = await api.post("/clients", { name, email });
-    console.log("Cliente registrado com sucesso", responseClient.data);
-    return responseClient.data; // Retorna a resposta do backend
-  } catch (error: any) {
-    console.error(
-      "Erro ao registrar client:",
-      error.response?.data || error.message
-    );
-    throw error.response?.data || new Error("Erro ao registrar client");
   }
 };
 
@@ -89,7 +82,7 @@ export const loginUser = async (
   }
 };
 
-export const loginClient = async (
+export const createClient = async (
   name: string,
   email: string
 ): Promise<LoginResponseClient> => {
@@ -104,6 +97,23 @@ export const loginClient = async (
       error.response?.data || error.message
     );
     throw error.response?.data || new Error("Erro ao fazer login");
+  }
+};
+
+export const createMaterial = async (
+  name: string,
+  value: number
+): Promise<responseMaterial> => {
+  try {
+    const responseMaterial = await api.post("/materials", { name, value });
+    console.log("Material registrado com sucesso", responseMaterial.data);
+    return responseMaterial.data;
+  } catch (error: any) {
+    console.error(
+      "Erro ao registrar material",
+      error.response?.data || error.message
+    );
+    throw error.response?.data || new Error("Erro ao registrar material");
   }
 };
 
@@ -134,44 +144,16 @@ export const getClientData = async () => {
   }
 };
 
-// Função para registrar cliente
-export async function createUser(userData: {
-  email: string;
-  password: string;
-}) {
+export const getMaterialData = async () => {
   try {
-    const response = await api.post("/user", userData); // Usa a instância api
-    return response.data;
-  } catch (error) {
-    console.error("Error during registration:", error);
-    throw error; // Opcional: você pode querer tratar isso de forma diferente
-  }
-}
-
-export async function createClient(clientData: {
-  name: string;
-  email: string;
-}) {
-  try {
-    const responseClient = await api.post("/clients", clientData);
-    return responseClient.data;
-  } catch (error) {
-    console.error("Error during registration:", error);
-    throw error;
-  }
-}
-
-export const createMaterial = async (name: String, value: number) => {
-  try {
-    const response = await api.post("/materials", { name, value });
-    console.log("Material criado com sucesso:", response.data);
-    return response.data;
+    const responseMaterial = await api.get("/materials");
+    return responseMaterial.data.data;
   } catch (error: any) {
     console.error(
-      "Erro ao criar material:",
+      "Erro ao buscar materiais",
       error.response?.data || error.message
     );
-    throw error.response?.data || new Error("Erro ao criar material");
+    throw error.response?.data || new Error("Erro ao buscar materiais");
   }
 };
 

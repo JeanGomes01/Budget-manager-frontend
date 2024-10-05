@@ -20,13 +20,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/user" element={<User />}></Route>
-          <Route path="/client" element={<Client />}></Route>
+          <Route path="/create-client" element={<Client />}></Route>
           <Route path="/login" element={<Login />} />
-          <Route path="/home-materials" element={<HomeMaterials />} />
+          <Route path="/materials" element={<HomeMaterials />} />
+          <Route path="/create-material" element={<Material />} />
           <Route path="/home-user" element={<HomeUser />}></Route>
           <Route path="/home-budget" element={<HomeBudget />} />
           <Route path="/users" element={<UserList />} />
-          <Route path="/materials" element={<Material />} />
           <Route path="/budget-step1" element={<BudgetStep1 />} />
           <Route path="/budget-step2" element={<BudgetStep2 />} />
           <Route path="/budget-step3" element={<BudgetStep3 />} />
