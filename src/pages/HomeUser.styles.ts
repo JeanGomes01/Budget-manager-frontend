@@ -97,15 +97,19 @@ export const UserDataContainer = styled.div`
 
 export const UserDataTitle = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   font-weight: normal;
   background-color: #d3d3d3;
   text-align: center;
+  padding: 0.5rem;
 `;
 
 export const UserData = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   text-align: center;
-  padding: 10px 0;
+  justify-items: center; /* Alinha itens ao centro */
+  align-items: center; /* Alinha itens ao centro verticalmente */
+  padding: 1rem 0; /* Ajuste de padding para espaçamento uniforme */
+  gap: 14rem;
 `;

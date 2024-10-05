@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createMaterial } from "../../../services/api";
 import {
   Label,
@@ -17,6 +18,7 @@ const Material: React.FC = () => {
   const [materialValue, setMaterialValue] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleMaterial = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +33,7 @@ const Material: React.FC = () => {
     try {
       // Chamada para a API de criação de material
       const response = await createMaterial(materialName, materialValueNumber);
+      alert("Material criado com sucesso!");
       console.log("Material Cadastrado:", response);
       setSuccessMessage("Material cadastrado com sucesso!");
 
@@ -68,9 +71,9 @@ const Material: React.FC = () => {
             required
           />
         </LabelInputContainer>
-        <MaterialButton type="submit">Criar</MaterialButton>
-        <ReturnButton type="button">Voltar</ReturnButton>
-        <LogoutButton type="button">Logout</LogoutButton>
+        <MaterialButton type="submit">Create</MaterialButton>
+        <ReturnButton onClick={() => navigate("/home-user")}>Back</ReturnButton>
+        <LogoutButton onClick={() => navigate("/login")}>Logout</LogoutButton>
       </MaterialBorderContainer>
     </MaterialContainer>
   );
