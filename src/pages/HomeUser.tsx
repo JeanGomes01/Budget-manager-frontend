@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getClientData } from "../services/api";
+import api, { getClientData } from "../services/api";
 import {
   BtnDelete,
   BtnUpdate,
@@ -37,14 +36,12 @@ const HomeUser = () => {
     navigate("/login");
   };
 
-  const deleteClientes = async (id: number) => {
-    console.log(id);
+  const deleteClients = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3333/clients`, {
-        data: { id }, // Passando o id no corpo da requisição
+      await api.delete(`http://localhost:3333/clients`, {
+        data: { id },
       });
-      setClientData(clientData.filter((client) => client.id !== id));
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao excluir cliente:", error);
     }
   };
@@ -52,17 +49,16 @@ const HomeUser = () => {
   useEffect(() => {
     getClientData().then((data) => setClientData(data));
   }, []);
+
   return (
     <div>
-      <h1>Bem-vindo ao Home do usuário!</h1>
+      <h1>Bem vindo a home do Usuário !</h1>
       <Buttons>
         <ButtonBlue onClick={() => navigate("/home-user")}>Clients</ButtonBlue>
         <ButtonGray onClick={() => navigate("/materials")}>
           Materials
         </ButtonGray>
-        <ButtonGray onClick={() => navigate("/budget-step1")}>
-          Budget
-        </ButtonGray>
+        <ButtonGray onClick={() => navigate("/home-budget")}>Budget</ButtonGray>
         <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
         <ButtonCriarCliente onClick={() => navigate("/create-client")}>
           Create Client
@@ -70,16 +66,19 @@ const HomeUser = () => {
         <ButtonCriarCliente onClick={() => navigate("/create-material")}>
           Create Material
         </ButtonCriarCliente>
+        <ButtonCriarCliente onClick={() => navigate("/budget-step1")}>
+          Create Budget
+        </ButtonCriarCliente>
       </Buttons>
       <h2>Listagem de Clientes</h2>
       <UserDataContainer>
-        <UserDataTitle>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Created At</th>
-          <th>Action</th>
-        </UserDataTitle>
         <tbody>
+          <UserDataTitle>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>Action</th>
+          </UserDataTitle>
           {clientData.map((client) => (
             <UserData key={client.id}>
               <td>{client.name}</td>
@@ -88,7 +87,12 @@ const HomeUser = () => {
               <td>
                 <ButtonAction>
                   <BtnUpdate>Update</BtnUpdate>
-                  <BtnDelete onClick={() => deleteClientes(client.id)}>
+                  <BtnDelete
+                    onClick={() => {
+                      deleteClients(client.id),
+                        getClientData().then((data) => setClientData(data));
+                    }}
+                  >
                     Delete
                   </BtnDelete>
                 </ButtonAction>

@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMaterialData } from "../services/api";
+import api, { getMaterialData } from "../services/api";
 import { ButtonCriarMaterials } from "./HomeMaterials.styles";
 import {
   BtnDelete,
@@ -30,7 +29,7 @@ const HomeMaterials = () => {
   const deleteMaterials = async (id: number) => {
     console.log(id);
     try {
-      await axios.delete(`http://localhost:3333/materials`, {
+      await api.delete(`http://localhost:3333/materials`, {
         data: { id }, // Passando o id no corpo da requisição
       });
       setMaterialData(materialData.filter((material) => material.id !== id));
@@ -50,16 +49,23 @@ const HomeMaterials = () => {
 
   return (
     <div>
-      <h1>Bem-vindo ao Home do usuário!</h1>
+      <h1>Bem-vindo ao home do usuário!</h1>
       <Buttons>
         <ButtonGray onClick={() => navigate("/home-user")}>Clients</ButtonGray>
-        <ButtonBlue>Materials</ButtonBlue>
-        <ButtonGray>Budget</ButtonGray>
+        <ButtonBlue onClick={() => navigate("/home-materials")}>
+          Materials
+        </ButtonBlue>
+        <ButtonGray onClick={() => navigate("/home-budget")}>Budget</ButtonGray>
         <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
         <ButtonCriarMaterials onClick={() => navigate("/create-client")}>
           Create Clients
         </ButtonCriarMaterials>
-        <ButtonCriarMaterials>Create Materials</ButtonCriarMaterials>
+        <ButtonCriarMaterials onClick={() => navigate("/create-material")}>
+          Create Materials
+        </ButtonCriarMaterials>
+        <ButtonCriarMaterials onClick={() => navigate("/budget-step1")}>
+          Create Budget
+        </ButtonCriarMaterials>
       </Buttons>
       <h2>Listagem de Materiais</h2>
       <UserDataContainer>

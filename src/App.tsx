@@ -19,12 +19,12 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/user" element={<User />}></Route>
-          <Route path="/create-client" element={<Client />}></Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/create-user" element={<User />}></Route>
+          <Route path="/home-user" element={<HomeUser />}></Route>
+          <Route path="/create-client" element={<Client />}></Route>
           <Route path="/materials" element={<HomeMaterials />} />
           <Route path="/create-material" element={<Material />} />
-          <Route path="/home-user" element={<HomeUser />}></Route>
           <Route path="/home-budget" element={<HomeBudget />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/budget-step1" element={<BudgetStep1 />} />

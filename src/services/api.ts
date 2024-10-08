@@ -40,6 +40,16 @@ interface responseMaterial {
   };
 }
 
+interface responseBudget {
+  data: {
+    clientId: number;
+    id: number;
+    name: string;
+    value: number;
+    createdAt: string;
+  };
+}
+
 // Função para registrar usuário
 export const registerUser = async (email: string, password: string) => {
   console.log("Dados enviados", { email, password });
@@ -117,6 +127,28 @@ export const createMaterial = async (
   }
 };
 
+export const createBudget = async (
+  clientId: number,
+  name: string,
+  value: number
+): Promise<responseBudget> => {
+  try {
+    const responseBudget = await api.post("/budgets", {
+      clientId,
+      name,
+      value,
+    });
+    console.log("Orcamento registrado com sucesso", responseBudget.data);
+    return responseBudget.data;
+  } catch (error: any) {
+    console.error(
+      "Erro ao registrar orcamento",
+      error.response?.data || error.message
+    );
+    throw error.response?.data || new Error("Erro ao registrar orcamento");
+  }
+};
+
 // Função para obter dados do cliente logado
 export const getUserData = async () => {
   try {
@@ -154,6 +186,18 @@ export const getMaterialData = async () => {
       error.response?.data || error.message
     );
     throw error.response?.data || new Error("Erro ao buscar materiais");
+  }
+};
+
+export const getBudgetData = async () => {
+  try {
+    const responseBudget = await api.get("/budgets");
+    return responseBudget.data.data;
+  } catch (error: any) {
+    console.error(
+      "Erro ao buscar orçcamentos",
+      error.response?.data || error.message
+    );
   }
 };
 

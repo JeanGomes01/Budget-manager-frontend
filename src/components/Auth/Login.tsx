@@ -73,7 +73,9 @@ const Login = () => {
         <LoginButton type="button" onClick={handleLogin}>
           Enter
         </LoginButton>
-        <LoginButton onClick={() => navigate("/user")}>Register</LoginButton>
+        <LoginButton onClick={() => navigate("/create-user")}>
+          Register
+        </LoginButton>
         {error && <p>{error}</p>}
       </LoginBorderContainer>
     </LoginContainer>

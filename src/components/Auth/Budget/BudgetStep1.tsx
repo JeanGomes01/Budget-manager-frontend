@@ -58,7 +58,7 @@ const Budget: React.FC = () => {
         <BudgetButton onClick={() => navigate("/budget-step2")} type="submit">
           Escolher
         </BudgetButton>
-        <ReturnButton onClick={() => navigate("/login")} type="submit">
+        <ReturnButton onClick={() => navigate("/home-user")} type="submit">
           Voltar
         </ReturnButton>
         <LogoutButton onClick={() => navigate("/login")} type="submit">

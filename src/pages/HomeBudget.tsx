@@ -1,99 +1,92 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  BtnVisualizar,
-  ButtonAction,
-  ButtonCriarBudget,
-  UserData,
-} from "./HomeBudget.styles";
-import {
-  ButtonBlue,
-  ButtonGray,
-  ButtonRed,
-  Buttons,
-  UserDataContainer,
-  UserDataTitle,
-} from "./HomeUser.styles";
+import api, { getBudgetData } from "../services/api";
+import { ButtonBlue, ButtonGray } from "./HomeMaterials.styles";
+import { ButtonCriarCliente, ButtonRed, Buttons } from "./HomeUser.styles";
 
-interface User {
+interface Budget {
+  clientId: number;
   id: number;
-  username: string;
-  email: string;
-  createdAt: string; // ou Date, se você preferir manipular como objeto Date
+  name: string;
+  value: number;
+  createdAt: string;
+  finalizedAt?: string;
 }
 
-const HomeUser = () => {
-  const [userData, setUserData] = useState<User | null>(null);
-  const token = localStorage.getItem("token");
+const HomeBudget = () => {
+  const [budgetData, setBudgetData] = useState<Budget[]>([]);
   const navigate = useNavigate();
 
-  const fetchUserData = async () => {
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-    try {
-      const response = await axios.get("http://localhost:3333/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUserData(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar dados do usuário:", error);
-      navigate("/login");
-    }
-  };
-
   const handleLogout = () => {
-    localStorage.removeItem("token");
     navigate("/login");
   };
 
   useEffect(() => {
-    fetchUserData();
+    getBudgetData().then((data) => setBudgetData(data));
   }, []);
+
+  const deleteBudget = async (id: number) => {
+    try {
+      await api.delete(`http://localhost:3333/budgets`, {
+        data: { id },
+      });
+      setBudgetData((prevBudgets) =>
+        prevBudgets.filter((budget) => budget.id !== id)
+      );
+    } catch (error) {
+      console.error("Erro ao excluir orçamento:", error);
+    }
+  };
 
   return (
     <div>
-      <h1>Bem-vindo ao Home do usuário!</h1>
+      <h1>Bem-vindo à home do Usuário!</h1>
       <Buttons>
-        <ButtonGray>Clientes</ButtonGray>
-        <ButtonGray>Materiais</ButtonGray>
-        <ButtonBlue>Orçamentos</ButtonBlue>
+        <ButtonGray onClick={() => navigate("/home-user")}>Clients</ButtonGray>
+        <ButtonGray onClick={() => navigate("/materials")}>
+          Materials
+        </ButtonGray>
+        <ButtonBlue onClick={() => navigate("/home-budget")}>Budget</ButtonBlue>
         <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
-        <ButtonCriarBudget>Criar Orçamento</ButtonCriarBudget>
+        <ButtonCriarCliente onClick={() => navigate("/create-client")}>
+          Create Client
+        </ButtonCriarCliente>
+        <ButtonCriarCliente onClick={() => navigate("/create-material")}>
+          Create Material
+        </ButtonCriarCliente>
+        <ButtonCriarCliente onClick={() => navigate("/budget-step1")}>
+          Create Budget
+        </ButtonCriarCliente>
       </Buttons>
-
-      {userData ? (
-        <div>
-          <UserDataContainer>
-            <UserDataTitle>
-              <h2>Cliente</h2>
-              <h2>Valor Total</h2>
-              <h2>Criado em</h2>
-              <h2>Concluido em</h2>
-              <h2>Ações</h2>
-            </UserDataTitle>
-            <UserData>
-              <p>Name: {userData.id}</p>
-              <p>Valor Total: R$ {userData.username}</p>
-              <p>
-                Data de Criação: {new Date(userData.createdAt).toLocaleString()}
-              </p>
-              <p>Concluido em:</p>
-              <ButtonAction>
-                <BtnVisualizar>Visualizar</BtnVisualizar>
-              </ButtonAction>
-            </UserData>
-          </UserDataContainer>
-        </div>
-      ) : (
-        <p>Carregando dados do usuário...</p>
-      )}
+      <h2>Listagem de Orçamentos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Total Value</th>
+            <th>Created At</th>
+            <th>Finalized At</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {budgetData.map((budget) => (
+            <tr key={budget.id}>
+              <td>{budget.name}</td>
+              <td>{budget.value}</td>
+              <td>{budget.createdAt}</td>
+              <td>{budget.finalizedAt ? budget.finalizedAt : "N/A"}</td>{" "}
+              {/* Use a variável correta para 'Finalized At' */}
+              <td>
+                <ButtonRed onClick={() => deleteBudget(budget.id)}>
+                  Delete
+                </ButtonRed>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
-
-export default HomeUser;
+export default HomeBudget;

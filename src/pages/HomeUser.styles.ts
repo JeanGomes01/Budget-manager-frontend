@@ -90,12 +90,13 @@ export const BtnDelete = styled.div`
   border-radius: 2rem;
 `;
 
-export const UserDataContainer = styled.div`
+export const UserDataContainer = styled.table`
   margin-top: 2rem;
-  border: 2px solid black;
+  border: 4px solid black;
+  width: 100%;
 `;
 
-export const UserDataTitle = styled.div`
+export const UserDataTitle = styled.tr`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   font-weight: normal;
@@ -104,7 +105,7 @@ export const UserDataTitle = styled.div`
   padding: 0.5rem;
 `;
 
-export const UserData = styled.div`
+export const UserData = styled.tr`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   text-align: center;

@@ -54,7 +54,7 @@ export const Buttons = styled.div`
   flex-wrap: wrap;
 `;
 
-export const ButtonCriarBudget = styled.div`
+export const ButtonCriarCliente = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,7 +74,7 @@ export const ButtonAction = styled.div`
   gap: 1rem;
 `;
 
-export const BtnVisualizar = styled.div`
+export const BtnUpdate = styled.div`
   background-color: #0094ff;
   color: #fff;
   cursor: pointer;
@@ -82,20 +82,35 @@ export const BtnVisualizar = styled.div`
   border-radius: 2rem;
 `;
 
-export const UserDataTitle = styled.div`
-  display: flex;
-  justify-content: space-around;
-  background-color: #d3d3d3;
+export const BtnDelete = styled.div`
+  background-color: #ff0000;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 2rem;
 `;
 
-export const UserDataContainer = styled.div`
+export const UserDataContainer = styled.table`
   margin-top: 2rem;
-  border: 2px solid black;
+  border: 4px solid black;
+  width: 100%;
 `;
 
-export const UserData = styled.div`
+export const UserDataTitle = styled.tr`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  font-weight: normal;
+  background-color: #d3d3d3;
   text-align: center;
-  padding: 10px 0;
+  padding: 0.5rem;
+`;
+
+export const UserData = styled.tr`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+  justify-items: center; /* Alinha itens ao centro */
+  align-items: center; /* Alinha itens ao centro verticalmente */
+  padding: 1rem 0; /* Ajuste de padding para espaçamento uniforme */
+  gap: 14rem;
 `;
