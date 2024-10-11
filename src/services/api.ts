@@ -138,7 +138,7 @@ export const createBudget = async (
       name,
       value,
     });
-    console.log("Orcamento registrado com sucesso", responseBudget.data);
+    console.log("Orçamento registrado com sucesso", responseBudget.data);
     return responseBudget.data;
   } catch (error: any) {
     console.error(
@@ -195,7 +195,7 @@ export const getBudgetData = async () => {
     return responseBudget.data.data;
   } catch (error: any) {
     console.error(
-      "Erro ao buscar orçcamentos",
+      "Erro ao buscar orçamentos",
       error.response?.data || error.message
     );
   }

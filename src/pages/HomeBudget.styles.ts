@@ -98,7 +98,7 @@ export const UserDataContainer = styled.table`
 
 export const UserDataTitle = styled.tr`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   font-weight: normal;
   background-color: #d3d3d3;
   text-align: center;
@@ -107,7 +107,7 @@ export const UserDataTitle = styled.tr`
 
 export const UserData = styled.tr`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   text-align: center;
   justify-items: center; /* Alinha itens ao centro */
   align-items: center; /* Alinha itens ao centro verticalmente */

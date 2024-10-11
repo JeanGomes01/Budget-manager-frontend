@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api, { getBudgetData } from "../services/api";
-import { ButtonBlue, ButtonGray } from "./HomeMaterials.styles";
+import { UserDataContainer, UserDataTitle } from "./HomeBudget.styles";
+import { ButtonBlue, ButtonGray, UserData } from "./HomeMaterials.styles";
 import { ButtonCriarCliente, ButtonRed, Buttons } from "./HomeUser.styles";
 
 interface Budget {
@@ -59,33 +60,36 @@ const HomeBudget = () => {
         </ButtonCriarCliente>
       </Buttons>
       <h2>Listagem de Orçamentos</h2>
-      <table>
-        <thead>
-          <tr>
+      <UserDataContainer>
+        <tbody>
+          <UserDataTitle>
             <th>Client</th>
             <th>Total Value</th>
             <th>Created At</th>
             <th>Finalized At</th>
             <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {budgetData.map((budget) => (
-            <tr key={budget.id}>
-              <td>{budget.name}</td>
-              <td>{budget.value}</td>
-              <td>{budget.createdAt}</td>
-              <td>{budget.finalizedAt ? budget.finalizedAt : "N/A"}</td>{" "}
-              {/* Use a variável correta para 'Finalized At' */}
-              <td>
-                <ButtonRed onClick={() => deleteBudget(budget.id)}>
-                  Delete
-                </ButtonRed>
-              </td>
-            </tr>
-          ))}
+          </UserDataTitle>
+          {budgetData && budgetData.length ? (
+            budgetData.map((budget) => (
+              <UserData key={budget.id}>
+                <td>{budget.name}</td>
+                <td>{budget.value}</td>
+                <td>{budget.createdAt}</td>
+                <td>{budget.finalizedAt ? budget.finalizedAt : "N/A"}</td>{" "}
+                <td>
+                  <ButtonRed onClick={() => deleteBudget(budget.id)}>
+                    Delete
+                  </ButtonRed>
+                </td>
+              </UserData>
+            ))
+          ) : (
+            <UserData>
+              <td>Não ha Orçamentos</td>
+            </UserData>
+          )}
         </tbody>
-      </table>
+      </UserDataContainer>
     </div>
   );
 };
