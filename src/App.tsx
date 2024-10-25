@@ -25,7 +25,7 @@ function App() {
           <Route path="/create-client" element={<Client />}></Route>
           <Route path="/materials" element={<HomeMaterials />} />
           <Route path="/create-material" element={<Material />} />
-          <Route path="/home-budget" element={<HomeBudget />} />
+          <Route path="/budgets" element={<HomeBudget />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/budget-step1" element={<BudgetStep1 />} />
           <Route path="/budget-step2" element={<BudgetStep2 />} />

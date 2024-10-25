@@ -16,22 +16,27 @@ export const HomeBorderContainer = styled.h1`
 `;
 
 export const ButtonGray = styled.button`
+  width: 10rem;
+  height: 2rem;
   background-color: #bababa;
   color: #fff;
   border: none;
   margin-left: 1rem;
   cursor: pointer;
+  border-radius: 0.8rem;
 `;
 
 export const ButtonBlue = styled.button`
+  width: 10rem;
+  height: 2rem;
   background-color: #0094ff;
   color: #fff;
   border: none;
-  margin-left: 1rem;
   cursor: pointer;
+  border-radius: 0.8rem;
 `;
 
-export const ButtonCriarMaterials = styled.div`
+export const ButtonCreate = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,6 +47,7 @@ export const ButtonCriarMaterials = styled.div`
   border: none;
   margin-left: 1rem;
   cursor: pointer;
+  border-radius: 0.8rem;
 `;
 
 export const ButtonAction = styled.div`

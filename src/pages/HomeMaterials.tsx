@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Material from "../components/Auth/Material/Material";
 import api, { getMaterialData } from "../services/api";
-import { ButtonCriarMaterials } from "./HomeMaterials.styles";
+import { ButtonCreate, ButtonLogout } from "./HomeBudget.styles";
 import {
   BtnDelete,
   BtnUpdate,
   ButtonAction,
   ButtonBlue,
   ButtonGray,
-  ButtonRed,
   Buttons,
   UserData,
   UserDataContainer,
@@ -25,6 +25,18 @@ interface Material {
 const HomeMaterials = () => {
   const [materialData, setMaterialData] = useState<Material[]>([]);
   const navigate = useNavigate();
+
+  const updateMaterials = async (id: number, name: string, value: number) => {
+    try {
+      await api.put(`http://localhost:3333/materials`, {
+        id,
+        name,
+        value,
+      });
+    } catch (error) {
+      console.error("Erro ao atualizar material", error);
+    }
+  };
 
   const deleteMaterials = async (id: number) => {
     console.log(id);
@@ -55,17 +67,17 @@ const HomeMaterials = () => {
         <ButtonBlue onClick={() => navigate("/home-materials")}>
           Materials
         </ButtonBlue>
-        <ButtonGray onClick={() => navigate("/home-budget")}>Budget</ButtonGray>
-        <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
-        <ButtonCriarMaterials onClick={() => navigate("/create-client")}>
+        <ButtonGray onClick={() => navigate("/budgets")}>Budget</ButtonGray>
+        <ButtonLogout onClick={handleLogout}>Logout</ButtonLogout>
+        <ButtonCreate onClick={() => navigate("/create-client")}>
           Create Clients
-        </ButtonCriarMaterials>
-        <ButtonCriarMaterials onClick={() => navigate("/create-material")}>
+        </ButtonCreate>
+        <ButtonCreate onClick={() => navigate("/create-material")}>
           Create Materials
-        </ButtonCriarMaterials>
-        <ButtonCriarMaterials onClick={() => navigate("/budget-step1")}>
+        </ButtonCreate>
+        <ButtonCreate onClick={() => navigate("/budget-step1")}>
           Create Budget
-        </ButtonCriarMaterials>
+        </ButtonCreate>
       </Buttons>
       <h2>Listagem de Materiais</h2>
       <UserDataContainer>
@@ -78,12 +90,28 @@ const HomeMaterials = () => {
         <tbody>
           {materialData.map((materialData) => (
             <UserData key={materialData.id}>
-              <td>{materialData.name}</td>
-              <td>{materialData.value}</td>
-              <td>{materialData.createdAt}</td>
+              <td>
+                <input type="text" value={materialData.name} />
+              </td>
+              <td>
+                <input type="text" value={materialData.value} />
+              </td>
+              <td>
+                <input type="text" value={materialData.createdAt} />
+              </td>
               <td>
                 <ButtonAction>
-                  <BtnUpdate>Update</BtnUpdate>
+                  <BtnUpdate
+                    onClick={() =>
+                      updateMaterials(
+                        materialData.id,
+                        materialData.name,
+                        materialData.value
+                      )
+                    }
+                  >
+                    Update
+                  </BtnUpdate>
                   <BtnDelete onClick={() => deleteMaterials(materialData.id)}>
                     Delete
                   </BtnDelete>

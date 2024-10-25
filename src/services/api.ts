@@ -192,7 +192,9 @@ export const getMaterialData = async () => {
 export const getBudgetData = async () => {
   try {
     const responseBudget = await api.get("/budgets");
-    return responseBudget.data.data;
+    const { data: budgets } = responseBudget.data;
+    console.log(budgets);
+    return budgets;
   } catch (error: any) {
     console.error(
       "Erro ao buscar orçamentos",

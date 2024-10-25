@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api, { getClientData } from "../services/api";
+import { ButtonCreate, ButtonLogout } from "./HomeBudget.styles";
 import {
   BtnDelete,
   BtnUpdate,
   ButtonAction,
   ButtonBlue,
-  ButtonCriarCliente,
   ButtonGray,
-  ButtonRed,
   Buttons,
   UserData,
   UserDataContainer,
@@ -36,6 +35,18 @@ const HomeUser = () => {
     navigate("/login");
   };
 
+  const updateCLients = async (id: number, name: string, email: string) => {
+    try {
+      await api.put(`http://localhost:3333/clients`, {
+        id,
+        name,
+        email,
+      });
+    } catch (error: any) {
+      console.error("Erro ao atualizar cliente:", error);
+    }
+  };
+
   const deleteClients = async (id: number) => {
     try {
       await api.delete(`http://localhost:3333/clients`, {
@@ -58,17 +69,17 @@ const HomeUser = () => {
         <ButtonGray onClick={() => navigate("/materials")}>
           Materials
         </ButtonGray>
-        <ButtonGray onClick={() => navigate("/home-budget")}>Budget</ButtonGray>
-        <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
-        <ButtonCriarCliente onClick={() => navigate("/create-client")}>
+        <ButtonGray onClick={() => navigate("/budgets")}>Budget</ButtonGray>
+        <ButtonLogout onClick={handleLogout}>Logout</ButtonLogout>
+        <ButtonCreate onClick={() => navigate("/create-client")}>
           Create Client
-        </ButtonCriarCliente>
-        <ButtonCriarCliente onClick={() => navigate("/create-material")}>
+        </ButtonCreate>
+        <ButtonCreate onClick={() => navigate("/create-material")}>
           Create Material
-        </ButtonCriarCliente>
-        <ButtonCriarCliente onClick={() => navigate("/budget-step1")}>
+        </ButtonCreate>
+        <ButtonCreate onClick={() => navigate("/budget-step1")}>
           Create Budget
-        </ButtonCriarCliente>
+        </ButtonCreate>
       </Buttons>
       <h2>Listagem de Clientes</h2>
       <UserDataContainer>
@@ -81,12 +92,26 @@ const HomeUser = () => {
           </UserDataTitle>
           {clientData.map((client) => (
             <UserData key={client.id}>
-              <td>{client.name}</td>
-              <td>{client.email}</td>
-              <td>{client.createdAt}</td>
+              <td>
+                <input type="text" value={client.name} />
+              </td>
+
+              <td>
+                <input type="text" value={client.email} />
+              </td>
+              <td>
+                <input type="text" value={client.createdAt} />
+              </td>
               <td>
                 <ButtonAction>
-                  <BtnUpdate>Update</BtnUpdate>
+                  <BtnUpdate
+                    onClick={() => {
+                      updateCLients(client.id, client.name, client.email),
+                        getClientData().then((data) => setClientData(data));
+                    }}
+                  >
+                    Update
+                  </BtnUpdate>
                   <BtnDelete
                     onClick={() => {
                       deleteClients(client.id),

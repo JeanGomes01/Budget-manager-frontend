@@ -15,14 +15,21 @@ export const HomeBorderContainer = styled.h1`
   gap: 1rem; /* Adiciona espaço entre os filhos */
 `;
 
+export const Buttons = styled.div`
+  width: 100%;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`;
+
 export const ButtonGray = styled.button`
-  width: 10rem;
-  height: 2.1rem;
   background-color: #bababa;
   color: #fff;
   border: none;
   margin-left: 1rem;
   cursor: pointer;
+  border-radius: 0.8rem;
 `;
 
 export const ButtonBlue = styled.button`
@@ -35,26 +42,21 @@ export const ButtonBlue = styled.button`
   cursor: pointer;
 `;
 
-export const ButtonRed = styled.div`
+export const ButtonLogout = styled.div`
   width: 10rem;
   height: 2.1rem;
   background-color: #ff0000;
   color: #fff;
   border: none;
-  margin-left: 1rem;
+  margin-left: 2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0.6rem;
 `;
 
-export const Buttons = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-export const ButtonCriarCliente = styled.div`
+export const ButtonCreate = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,6 +67,7 @@ export const ButtonCriarCliente = styled.div`
   border: none;
   margin-left: 1rem;
   cursor: pointer;
+  border-radius: 0.6rem;
 `;
 
 export const ButtonAction = styled.div`
@@ -113,4 +116,15 @@ export const UserData = styled.tr`
   align-items: center; /* Alinha itens ao centro verticalmente */
   padding: 1rem 0; /* Ajuste de padding para espaçamento uniforme */
   gap: 14rem;
+`;
+
+export const ButtonVisualization = styled.button`
+  width: 10rem;
+  height: 2rem;
+  background-color: #0094ff;
+  color: #fff;
+  border: none;
+  margin-left: 1rem;
+  cursor: pointer;
+  border-radius: 0.8rem;
 `;

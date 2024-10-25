@@ -1,17 +1,30 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api, { getBudgetData } from "../services/api";
-import { UserDataContainer, UserDataTitle } from "./HomeBudget.styles";
+import { getBudgetData } from "../services/api";
+import {
+  ButtonCreate,
+  ButtonLogout,
+  Buttons,
+  ButtonVisualization,
+  UserDataContainer,
+  UserDataTitle,
+} from "./HomeBudget.styles";
 import { ButtonBlue, ButtonGray, UserData } from "./HomeMaterials.styles";
-import { ButtonCriarCliente, ButtonRed, Buttons } from "./HomeUser.styles";
+
+interface Client {
+  id: number;
+  name: string;
+  email: string;
+}
 
 interface Budget {
+  client: Client;
   clientId: number;
   id: number;
   name: string;
-  value: number;
+  amount: number;
   createdAt: string;
-  finalizedAt?: string;
+  finalized: boolean;
 }
 
 const HomeBudget = () => {
@@ -26,19 +39,6 @@ const HomeBudget = () => {
     getBudgetData().then((data) => setBudgetData(data));
   }, []);
 
-  const deleteBudget = async (id: number) => {
-    try {
-      await api.delete(`http://localhost:3333/budgets`, {
-        data: { id },
-      });
-      setBudgetData((prevBudgets) =>
-        prevBudgets.filter((budget) => budget.id !== id)
-      );
-    } catch (error) {
-      console.error("Erro ao excluir orçamento:", error);
-    }
-  };
-
   return (
     <div>
       <h1>Bem-vindo à home do Usuário!</h1>
@@ -47,18 +47,21 @@ const HomeBudget = () => {
         <ButtonGray onClick={() => navigate("/materials")}>
           Materials
         </ButtonGray>
-        <ButtonBlue onClick={() => navigate("/home-budget")}>Budget</ButtonBlue>
-        <ButtonRed onClick={handleLogout}>Logout</ButtonRed>
-        <ButtonCriarCliente onClick={() => navigate("/create-client")}>
+        <ButtonBlue onClick={() => navigate("/budgets")}>Budget</ButtonBlue>
+
+        <ButtonLogout onClick={handleLogout}>Logout</ButtonLogout>
+
+        <ButtonCreate onClick={() => navigate("/create-client")}>
           Create Client
-        </ButtonCriarCliente>
-        <ButtonCriarCliente onClick={() => navigate("/create-material")}>
+        </ButtonCreate>
+        <ButtonCreate onClick={() => navigate("/create-material")}>
           Create Material
-        </ButtonCriarCliente>
-        <ButtonCriarCliente onClick={() => navigate("/budget-step1")}>
+        </ButtonCreate>
+        <ButtonCreate onClick={() => navigate("/budget-step1")}>
           Create Budget
-        </ButtonCriarCliente>
+        </ButtonCreate>
       </Buttons>
+
       <h2>Listagem de Orçamentos</h2>
       <UserDataContainer>
         <tbody>
@@ -72,15 +75,11 @@ const HomeBudget = () => {
           {budgetData && budgetData.length ? (
             budgetData.map((budget) => (
               <UserData key={budget.id}>
-                <td>{budget.name}</td>
-                <td>{budget.value}</td>
+                <td>{budget.client.name}</td>
+                <td>{budget.amount}</td>
                 <td>{budget.createdAt}</td>
-                <td>{budget.finalizedAt ? budget.finalizedAt : "N/A"}</td>{" "}
-                <td>
-                  <ButtonRed onClick={() => deleteBudget(budget.id)}>
-                    Delete
-                  </ButtonRed>
-                </td>
+                <td>{JSON.stringify(budget.finalized)}</td>
+                <ButtonVisualization>Visualizar</ButtonVisualization>
               </UserData>
             ))
           ) : (

@@ -23,6 +23,7 @@ export const ButtonGray = styled.button`
   border: none;
   margin-left: 1rem;
   cursor: pointer;
+  border-radius: 0.8rem;
 `;
 
 export const ButtonBlue = styled.button`
@@ -33,11 +34,11 @@ export const ButtonBlue = styled.button`
   border: none;
   margin-left: 1rem;
   cursor: pointer;
+  border-radius: 0.8rem;
 `;
 
-export const ButtonRed = styled.div`
-  width: 10rem;
-  height: 2.1rem;
+export const ButtonLogout = styled.div`
+  width: 5rem;
   background-color: #ff0000;
   color: #fff;
   border: none;
@@ -54,7 +55,7 @@ export const Buttons = styled.div`
   flex-wrap: wrap;
 `;
 
-export const ButtonCriarCliente = styled.div`
+export const ButtonCreate = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
